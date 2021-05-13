@@ -3,17 +3,21 @@
 
 import * as React from 'react'
 
-import {fetchPokemon, PokemonDataView} from '../pokemon'
+import {fetchPokemon, PokemonDataView, PokemonErrorBoundary} from '../pokemon'
 
 let pokemon
+let pokemonError
 
 const pokemonPromise = fetchPokemon('pikachu')
-
+// In order to handle errors with error boundaries when using suspense,
+// You must make sure your promise handles the error and throws it
 const onSuccess = data => (pokemon = data)
+const onFailure = error => (pokemonError = error)
 
-pokemonPromise.then(onSuccess)
+pokemonPromise.then(onSuccess, onFailure)
 
 function PokemonInfo() {
+  if (pokemonError) throw pokemonError
   if (!pokemon) throw pokemonPromise
 
   return (
@@ -34,9 +38,11 @@ function App() {
   return (
     <div className="pokemon-info-app">
       <div className="pokemon-info">
-        <React.Suspense fallback={<MyFallBack />}>
-          <PokemonInfo />
-        </React.Suspense>
+        <PokemonErrorBoundary>
+          <React.Suspense fallback={<MyFallBack />}>
+            <PokemonInfo />
+          </React.Suspense>
+        </PokemonErrorBoundary>
       </div>
     </div>
   )
