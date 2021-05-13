@@ -5,20 +5,34 @@ import * as React from 'react'
 
 import {fetchPokemon, PokemonDataView, PokemonErrorBoundary} from '../pokemon'
 
-let pokemon
-let pokemonError
+function createResource(promise) {
+  let status = 'pending'
 
-const pokemonPromise = fetchPokemon('pikachu')
-// In order to handle errors with error boundaries when using suspense,
-// You must make sure your promise handles the error and throws it
-const onSuccess = data => (pokemon = data)
-const onFailure = error => (pokemonError = error)
+  let result = promise.then(
+    resolved => {
+      status = 'resolved'
+      result = resolved
+    },
+    error => {
+      status = 'rejected'
+      result = error
+    },
+  )
 
-pokemonPromise.then(onSuccess, onFailure)
+  return {
+    read() {
+      if (status === 'pending') throw result
+      if (status === 'rejected') throw result
+      if (status === 'resolved') return result
+      throw new Error('This should be impossible')
+    },
+  }
+}
+
+const pokemonResource = createResource(fetchPokemon('pikachu'))
 
 function PokemonInfo() {
-  if (pokemonError) throw pokemonError
-  if (!pokemon) throw pokemonPromise
+  const pokemon = pokemonResource.read()
 
   return (
     <div>
