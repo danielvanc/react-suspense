@@ -3,31 +3,13 @@
 
 import * as React from 'react'
 
-import {fetchPokemon, PokemonDataView, PokemonErrorBoundary} from '../pokemon'
-
-function createResource(promise) {
-  let status = 'pending'
-
-  let result = promise.then(
-    resolved => {
-      status = 'resolved'
-      result = resolved
-    },
-    error => {
-      status = 'rejected'
-      result = error
-    },
-  )
-
-  return {
-    read() {
-      if (status === 'pending') throw result
-      if (status === 'rejected') throw result
-      if (status === 'resolved') return result
-      throw new Error('This should be impossible')
-    },
-  }
-}
+import {
+  fetchPokemon,
+  PokemonDataView,
+  PokemonInfoFallback,
+  PokemonErrorBoundary,
+} from '../pokemon'
+import {createResource} from '../../src/utils'
 
 const pokemonResource = createResource(fetchPokemon('pikachu'))
 
@@ -44,16 +26,12 @@ function PokemonInfo() {
   )
 }
 
-function MyFallBack() {
-  return <p>Loading... or not</p>
-}
-
 function App() {
   return (
     <div className="pokemon-info-app">
       <div className="pokemon-info">
         <PokemonErrorBoundary>
-          <React.Suspense fallback={<MyFallBack />}>
+          <React.Suspense fallback={<PokemonInfoFallback name="Dan" />}>
             <PokemonInfo />
           </React.Suspense>
         </PokemonErrorBoundary>
