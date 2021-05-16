@@ -56,7 +56,7 @@ need to close that overlay by clicking the "x" in the upper-right.
 ## System Requirements
 
 - [git][git] v2.13 or greater
-- [NodeJS][node] `^10.13 || 12 || 14 || 15`
+- [NodeJS][node] `12 || 14 || 15 || 16`
 - [npm][npm] v6 or greater
 
 All of these must be available in your `PATH`. To verify things are set up
@@ -155,25 +155,26 @@ The purpose of the exercise is **not** for you to work through all the material.
 It's intended to get your brain thinking about the right questions to ask me as
 _I_ walk through the material.
 
-### Helpful Emoji 🐨 💪 🏁 💰 💯 🦉 📜 💣 👨‍💼 🚨
+### Helpful Emoji 🐨 💰 💯 📝 🦉 📜 💣 💪 🏁 👨‍💼 🚨
 
 Each exercise has comments in it to help you get through the exercise. These fun
 emoji characters are here to help you.
 
-- **Kody the Koala Bear** 🐨 will tell you when there's something specific you
-  should do
-- **Matthew the Muscle** 💪 will indicate what you're working with an exercise
-- **Chuck the Checkered Flag** 🏁 will indicate that you're working with a final
-  version
+- **Kody the Koala** 🐨 will tell you when there's something specific you should
+  do version
 - **Marty the Money Bag** 💰 will give you specific tips (and sometimes code)
   along the way
 - **Hannah the Hundred** 💯 will give you extra challenges you can do if you
   finish the exercises early.
+- **Nancy the Notepad** 📝 will encourage you to take notes on what you're
+  learning
 - **Olivia the Owl** 🦉 will give you useful tidbits/best practice notes and a
   link for elaboration and feedback.
 - **Dominic the Document** 📜 will give you links to useful documentation
 - **Berry the Bomb** 💣 will be hanging around anywhere you need to blow stuff
   up (delete code)
+- **Matthew the Muscle** 💪 will indicate that you're working with an exercise
+- **Chuck the Checkered Flag** 🏁 will indicate that you're working with a final
 - **Peter the Product Manager** 👨‍💼 helps us know what our users want
 - **Alfred the Alert** 🚨 will occasionally show up in the test failures with
   potential explanations for why the tests are failing.
@@ -210,6 +211,9 @@ Thanks goes to these wonderful people
     <td align="center"><a href="https://github.com/intrueder"><img src="https://avatars2.githubusercontent.com/u/182339?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tymur Mudzhyri</b></sub></a><br /><a href="https://github.com/kentcdodds/react-suspense/issues?q=author%3Aintrueder" title="Bug reports">🐛</a> <a href="https://github.com/kentcdodds/react-suspense/commits?author=intrueder" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/billfienberg"><img src="https://avatars3.githubusercontent.com/u/6130520?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bill Fienberg</b></sub></a><br /><a href="https://github.com/kentcdodds/react-suspense/commits?author=billfienberg" title="Documentation">📖</a></td>
     <td align="center"><a href="http://devlogger.wordpress.com"><img src="https://avatars2.githubusercontent.com/u/15407?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Martin Carel</b></sub></a><br /><a href="https://github.com/kentcdodds/react-suspense/commits?author=cawel" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://gkueny.fr"><img src="https://avatars.githubusercontent.com/u/10655690?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gaëtan Kueny</b></sub></a><br /><a href="https://github.com/kentcdodds/react-suspense/issues?q=author%3Agkueny" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/nawok"><img src="https://avatars.githubusercontent.com/u/159773?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pavel Fomchenkov</b></sub></a><br /><a href="https://github.com/kentcdodds/react-suspense/issues?q=author%3Anawok" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://plai.team"><img src="https://avatars.githubusercontent.com/u/6297446?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andriy Bas</b></sub></a><br /><a href="https://github.com/kentcdodds/react-suspense/commits?author=AndriyBas" title="Code">💻</a></td>
   </tr>
 </table>
 
