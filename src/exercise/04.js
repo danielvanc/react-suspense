@@ -46,21 +46,39 @@ function usePokemonCacheContext() {
   return context
 }
 
-function PokemonCacheProvider({children}) {
+function PokemonCacheProvider({cacheTime = 5000, children}) {
   const cache = React.useRef({})
+  const expirations = React.useRef({})
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      for (const [name, time] of Object.entries(expirations.current)) {
+        if (time < Date.now()) {
+          delete cache.current[name]
+        }
+      }
+    })
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
 
   // Add a useCallback so that it's stable through re-renders and
   // can use it in the useEffect dependency list.
-  const getPokemonResource = React.useCallback(name => {
-    let resource = cache.current[name]
+  const getPokemonResource = React.useCallback(
+    name => {
+      let resource = cache.current[name]
 
-    if (!resource) {
-      resource = createPokemonResource(name)
-      cache.current[name] = resource
-    }
-
-    return resource
-  }, [])
+      if (!resource) {
+        resource = createPokemonResource(name)
+        cache.current[name] = resource
+      }
+      // When the cache should expire
+      expirations.current[name] = Date.now() + cacheTime
+      return resource
+    },
+    [cacheTime],
+  )
 
   return (
     <PokemonCacheContext.Provider value={getPokemonResource}>
@@ -119,7 +137,7 @@ function App() {
 
 function AppWithProvider() {
   return (
-    <PokemonCacheProvider>
+    <PokemonCacheProvider cacheTime={5000}>
       <App />
     </PokemonCacheProvider>
   )
