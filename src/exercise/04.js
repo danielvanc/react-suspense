@@ -1,6 +1,7 @@
 // Cache resources
 // http://localhost:3000/isolated/exercise/04.js
 
+import {context} from 'msw'
 import * as React from 'react'
 import {
   fetchPokemon,
@@ -29,24 +30,11 @@ const SUSPENSE_CONFIG = {
   busyMinDurationMs: 700,
 }
 
-const pokemonResourceCache = {}
-
-function getPokemonResource(name) {
-  let resource = pokemonResourceCache[name]
-
-  if (!resource) {
-    resource = createPokemonResource(name)
-    pokemonResourceCache[name] = resource
-  }
-
-  return resource
-}
-
 function createPokemonResource(pokemonName) {
   return createResource(fetchPokemon(pokemonName))
 }
 
-const PokemonCacheContext = React.createContext(getPokemonResource)
+const PokemonCacheContext = React.createContext()
 
 function usePokemonCacheContext() {
   const context = React.useContext(PokemonCacheContext)
@@ -56,6 +44,29 @@ function usePokemonCacheContext() {
   }
 
   return context
+}
+
+function PokemonCacheProvider({children}) {
+  const cache = React.useRef({})
+
+  // Add a useCallback so that it's stable through re-renders and
+  // can use it in the useEffect dependency list.
+  const getPokemonResource = React.useCallback(name => {
+    let resource = cache.current[name]
+
+    if (!resource) {
+      resource = createPokemonResource(name)
+      cache.current[name] = resource
+    }
+
+    return resource
+  }, [])
+
+  return (
+    <PokemonCacheContext.Provider value={getPokemonResource}>
+      {children}
+    </PokemonCacheContext.Provider>
+  )
 }
 
 function App() {
@@ -106,4 +117,12 @@ function App() {
   )
 }
 
-export default App
+function AppWithProvider() {
+  return (
+    <PokemonCacheProvider>
+      <App />
+    </PokemonCacheProvider>
+  )
+}
+
+export default AppWithProvider
